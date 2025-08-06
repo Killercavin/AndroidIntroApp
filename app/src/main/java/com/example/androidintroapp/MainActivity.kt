@@ -1,4 +1,4 @@
-package com.example.androidinroapp
+package com.example.androidintroapp
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -17,14 +17,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.androidinroapp.ui.theme.AndroidInroAppTheme
+import com.example.androidintroapp.ui.theme.AndroidIntroAppTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            AndroidInroAppTheme {
+            AndroidIntroAppTheme {
                 Surface (
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
