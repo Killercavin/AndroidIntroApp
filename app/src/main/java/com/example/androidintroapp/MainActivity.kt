@@ -64,6 +64,7 @@ fun ArticleCard(
             contentDescription = null,
             modifier = Modifier
                 .fillMaxWidth()
+                .padding(top = 45.dp)
         )
 
         Text(
