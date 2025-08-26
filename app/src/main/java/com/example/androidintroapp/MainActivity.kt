@@ -4,30 +4,24 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.Image
+import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.painter.Painter
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.example.androidintroapp.ui.theme.AndroidIntroAppTheme
 
 class MainActivity : ComponentActivity() {
@@ -37,8 +31,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             AndroidIntroAppTheme {
                 Surface(
-                    modifier = Modifier
-                        .fillMaxSize(),
+                    modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
                     AndroidIntroApp()
@@ -50,70 +43,81 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun AndroidIntroApp() {
-    TaskCard(
-        title = stringResource(R.string.title),
-        shortDescription = stringResource(R.string.short_description)
-    )
+    QuadrantScreen()
 }
 
 @Composable
-fun TaskCard(
-    modifier: Modifier = Modifier,
-    title: String,
-    shortDescription: String,
-    imagePainter: Painter = painterResource(R.drawable.ic_task_completed)
-) {
-    Column(
-        modifier = modifier
-            .fillMaxWidth(),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        var surpriseWord by remember { mutableStateOf("Surprise") }
-        Image(
-            painter = imagePainter,
-            contentDescription = null,
+fun QuadrantScreen() {
+    Column(Modifier.fillMaxSize()) {
+        // First row
+        Row(
             modifier = Modifier
+                .weight(1f)
                 .fillMaxWidth()
-                .padding(top = 45.dp)
-        )
-
-        Text(
-            text = title,
-            textAlign = TextAlign.Justify,
-            fontSize = 16.sp,
-            fontWeight = FontWeight.Bold,
-            modifier = Modifier
-                .padding(
-                    top = 24.dp,
-                    bottom = 8.dp
-                )
-        )
-
-        Text(
-            text = shortDescription,
-            textAlign = TextAlign.Justify,
-            modifier = Modifier
-                .padding(
-                    start = 16.dp,
-                    end = 16.dp
-                )
-        )
-
-        Button(
-            onClick = { surpriseWord = "Surprise!" }
         ) {
-            Text(text = surpriseWord)
+            QuadrantItem(
+                title = "Text composable",
+                description = "Displays text and follows the recommended Material Design guidelines.",
+                modifier = Modifier
+                    .weight(1f),
+            )
+            QuadrantItem(
+                title = "Image composable",
+                description = "Creates a composable that lays out and draws a given Painter class object.",
+                modifier = Modifier.weight(1f)
+            )
+        }
+
+        // Second row
+        Row(
+            modifier = Modifier
+                .weight(1f)
+                .fillMaxWidth()
+        ) {
+            QuadrantItem(
+                title = "Row composable",
+                description = "A layout composable that places its children in a horizontal sequence.",
+                modifier = Modifier.weight(1f)
+            )
+            QuadrantItem(
+                title = "Column composable",
+                description = "A layout composable that places its children in a vertical sequence.",
+                modifier = Modifier.weight(1f)
+            )
         }
     }
 }
 
-@Preview(
-    showBackground = true
-)
+@Composable
+fun QuadrantItem(
+    title: String,
+    description: String,
+    modifier: Modifier = Modifier
+) {
+    Column(
+        modifier = modifier
+            .fillMaxSize()
+            .border(1.dp, Color.Gray)
+            .padding(16.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        Text(
+            text = title,
+            fontWeight = FontWeight.Bold,
+            textAlign = TextAlign.Center
+        )
+        Text(
+            text = description,
+            textAlign = TextAlign.Center
+        )
+    }
+}
+
+@Preview(showBackground = true)
 @Composable
 private fun AndroidIntroPreview() {
-    TaskCard(
-        title = stringResource(R.string.title),
-        shortDescription = stringResource(R.string.short_description)
-    )
+    AndroidIntroAppTheme {
+        QuadrantScreen()
+    }
 }
